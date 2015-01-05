@@ -2,8 +2,8 @@
 
 # install and configure git
 sudo apt-get install git -y
-git config --global user.email "manleyjster@gmail.com"
-git config --global user.name "Justin Manley"
+git config --global user.email "${GITCONFIG[EMAIL]}"
+git config --global user.name "${GITCONFIG[NAME]}"
 
 # install hub tool
 git clone https://github.com/github/hub.git

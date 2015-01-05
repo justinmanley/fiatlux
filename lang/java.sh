@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source setup/config.sh
+
 # https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get
 
 sudo apt-get install python-software-properties -y
