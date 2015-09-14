@@ -12,5 +12,8 @@ cd hub
 sudo cp hub /usr/local/bin
 cd ../ && rm -rf hub # cleanup
 
+# add goodies like summaries of repo stats, etc.
+sudo apt-get install git-extras -y
+
 # alias hub as git
 printf '\n# alias hub as git \neval "$(hub alias -s)"' >> ~/.bash_profile
