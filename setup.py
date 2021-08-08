@@ -51,6 +51,18 @@ class SystemDependency(Dependency):
         echo_run(f"{install} {name}")
 
 
+class CustomSystemDependency(Dependency):
+    def __init__(self, canonical_name, installation_commands_by_os):
+        self._canonical_name = canonical_name
+        self._install_commands = installation_commands_by_os
+
+    def install(self):
+        if sys.platform not in self._install_commands:
+            raise ValueError(f"Dependency {self._canonical_name} has no install name on {sys.platform}")
+        for command in self._install_commands[sys.platform]:
+            echo_run(command)
+
+
 class Homebrew(Dependency):
     # TODO: Implement
     pass
@@ -97,6 +109,12 @@ DEPENDENCIES: Iterable[Dependency] = [
     SystemDependency('pass'),
     SystemDependency('pandoc'),
     SystemDependency('htop'),
+    CustomSystemDependency("git-credential-manager", {
+        "darwin": [
+            "brew tap microsoft/git",
+            "brew install --cask git-credential-manager-core",
+        ],
+    })
 ]
 
 
