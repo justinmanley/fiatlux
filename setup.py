@@ -100,11 +100,23 @@ class Mamba(Dependency):
         echo_run("conda install mamba -n base -c conda-forge")
 
 
+class Nvm(Dependency):
+    def install(self):
+        # TODO: Fix this!!
+        # Add these lines to ~/.zshrc on mac:
+        # export NVM_DIR="$HOME/.nvm"
+        # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+        # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+        echo_run("curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash")
+
+
 DEPENDENCIES: Iterable[Dependency] = [
     # Package managers
     Homebrew(),
     Conda(),
     Mamba(),
+
+    Nvm(),
 
     SystemDependency('pass'),
     SystemDependency('pandoc'),
@@ -114,7 +126,15 @@ DEPENDENCIES: Iterable[Dependency] = [
             "brew tap microsoft/git",
             "brew install --cask git-credential-manager-core",
         ],
-    })
+    }),
+
+    # Graphics
+    CustomSystemDependency('gimp', {
+        "darwin": [
+            "brew install --cask gimp",
+        ],
+    }),
+    SystemDependency('imagemagick'),
 ]
 
 
